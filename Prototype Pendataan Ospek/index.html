@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSPEK Participant Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2>OSPEK 2026</h2>
+                <p>Management System</p>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" id="menu-dashboard" onclick="switchPage('dashboard')">Dashboard</a>
+                <a href="#" class="menu-item" id="menu-peserta" onclick="switchPage('peserta')">Kelola Peserta</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-profile">Panitia OSPEK</div>
+            </header>
+
+            <section id="page-dashboard" class="content-section">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Total Peserta</h3>
+                        <p id="stat-total-peserta">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Kelompok</h3>
+                        <p id="stat-total-kelompok">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Prodi</h3>
+                        <p id="stat-total-prodi">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="page-peserta" class="content-section hidden">
+                <div class="grid-container">
+                    
+                    <div class="card form-card">
+                        <h3 id="form-title">Tambah Peserta Baru</h3>
+                        <form id="form-peserta-ospek" onsubmit="handleFormSubmit(event)">
+                            <input type="hidden" id="old-nim">
+                            
+                            <div class="form-group">
+                                <label for="nama">Nama Lengkap</label>
+                                <input type="text" id="nama" placeholder="Masukkan nama lengkap">
+                            </div>
+                            <div class="form-group">
+                                <label for="nim">NIM</label>
+                                <input type="text" id="nim" placeholder="Masukkan NIM mahasiswa">
+                            </div>
+                            <div class="form-group">
+                                <label for="prodi">Program Studi</label>
+                                <input type="text" id="prodi" placeholder="Contoh: Teknik Informatika">
+                            </div>
+                            <div class="form-group">
+                                <label for="kelompok">Nomor Kelompok</label>
+                                <input type="number" id="kelompok" placeholder="Contoh: 12" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="hp">Nomor HP</label>
+                                <input type="text" id="hp" placeholder="Contoh: 08123456789">
+                            </div>
+                            
+                            <div id="form-alert" class="alert hidden"></div>
+
+                            <div class="form-actions">
+                                <button type="submit" id="btn-submit" class="btn btn-primary">Simpan Data</button>
+                                <button type="button" id="btn-cancel" class="btn btn-secondary hidden" onclick="resetForm()">Batal</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card table-card">
+                        <div class="table-header">
+                            <h3>Daftar Peserta Terdaftar</h3>
+                            <div class="search-box">
+                                <input type="text" id="search-input" placeholder="Cari Nama atau NIM..." oninput="handleSearch()">
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="table-peserta">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>NIM</th>
+                                        <th>Program Studi</th>
+                                        <th>Kelompok</th>
+                                        <th>Nomor HP</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list-peserta-tbody">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="delete-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>Konfirmasi Hapus</h3>
+            <p>Apakah Anda yakin ingin menghapus peserta bernama <strong id="modal-nama-peserta"></strong>?</p>
+            <div class="modal-actions">
+                <button id="btn-confirm-delete" class="btn btn-danger">Hapus</button>
+                <button onclick="closeModal()" class="btn btn-secondary">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
